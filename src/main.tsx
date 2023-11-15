@@ -1,16 +1,30 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
-const queryClient = new QueryClient();
+const Header = () => {
+  return (
+    <header>
+      <nav className="h-20 px-10 flex w-full items-center bg-white absolute">
+        <img alt="logo" width="147" height="32" src="/logo.svg"></img>
+      </nav>
+    </header>
+  );
+};
+
+const App = () => {
+  return (
+    <>
+      <Header />
+      <main className="flex justify-center items-center min-h-screen bg-stroke">
+        Aplikacja
+      </main>
+    </>
+  );
+};
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <div>Hello</div>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <App />
   </React.StrictMode>
 );
