@@ -5,7 +5,10 @@ import "./index.css";
 const MONTH_MS = 1000 * 60 * 60 * 24 * 30;
 const currentDate = Date.now();
 // use US locale
-const formatNumber = new Intl.NumberFormat("en-US", { style: "decimal" });
+const currencyFormatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
 
 const Header = () => {
   return (
@@ -37,10 +40,8 @@ const Card = () => {
   const month = dateParsed.toLocaleString("default", { month: "long" });
   const year = dateParsed.getFullYear();
 
-  const moneyParsed = Number(money);
-  const total =
-    Math.floor((date - currentDate) / MONTH_MS) *
-    (isNaN(moneyParsed) ? 0 : moneyParsed);
+  const moneyParsed = !isNaN(Number(money)) ? Number(money) : 0;
+  const total = Math.floor((date - currentDate) / MONTH_MS) * moneyParsed;
 
   return (
     <div className="w-[600px] rounded-[5px] overflow-hidden shadow-level4 bg-white text-midnight h-fit">
@@ -100,11 +101,13 @@ const Card = () => {
         </div>
         <div className="flex px-4 justify-between">
           <span className="total-amount">Total amount</span>
-          <span className="sum">${formatNumber.format(total)}</span>
+          <span className="sum">{currencyFormatter.format(total)}</span>
         </div>
         <div className="flex px-4 py-6 !items-center summary bg-stroke">
           <span>You will be sending&nbsp;</span>
-          <span className="font-semibold">{money.concat("$")}</span>
+          <span className="font-semibold">
+            {currencyFormatter.format(moneyParsed)}
+          </span>
           <span>&nbsp;every month, until&nbsp;</span>
           <span className="font-semibold">{`${month} ${year}.`}</span>
           <span>&nbsp;Thank you!</span>
