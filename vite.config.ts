@@ -8,6 +8,9 @@ export default defineConfig({
   server: {
     host: true,
     port: 3000,
+    headers: {
+      "cache-control": "max-age=604800",
+    },
   },
   resolve: {
     alias: [{ find: "@", replacement: path.resolve(__dirname) }],
