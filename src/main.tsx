@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 
+const MONTH_MS = 1000 * 60 * 60 * 24 * 30;
+const currentDate = Date.now();
+// use US locale
+const formatNumber = new Intl.NumberFormat("en-US", { style: "decimal" });
+
 const Header = () => {
   return (
     <header>
@@ -12,17 +17,17 @@ const Header = () => {
   );
 };
 
-const MONTH_MS = 1000 * 60 * 60 * 24 * 30;
-const currentDate = Date.now();
-
 const Card = () => {
   const [money, setMoney] = useState("25");
   const [date, setDate] = useState<number>(currentDate); // we start with current date
 
-  const handleDateForward = () => setDate(date + MONTH_MS);
+  const handleDateForward = () => {
+    setDate(date + MONTH_MS);
+  };
 
   const handleDateBack = () => {
     const attemptedDate = date - MONTH_MS;
+
     if (attemptedDate < currentDate) return;
 
     setDate(attemptedDate);
@@ -31,6 +36,11 @@ const Card = () => {
   const dateParsed = new Date(date);
   const month = dateParsed.toLocaleString("default", { month: "long" });
   const year = dateParsed.getFullYear();
+
+  const moneyParsed = Number(money);
+  const total =
+    Math.floor((date - currentDate) / MONTH_MS) *
+    (isNaN(moneyParsed) ? 0 : moneyParsed);
 
   return (
     <div className="w-[600px] rounded-[5px] overflow-hidden shadow-level4 bg-white text-midnight h-fit">
@@ -90,13 +100,13 @@ const Card = () => {
         </div>
         <div className="flex px-4 justify-between">
           <span className="total-amount">Total amount</span>
-          <span className="sum">$200,000</span>
+          <span className="sum">${formatNumber.format(total)}</span>
         </div>
         <div className="flex px-4 py-6 !items-center summary bg-stroke">
           <span>You will be sending&nbsp;</span>
           <span className="font-semibold">{money.concat("$")}</span>
           <span>&nbsp;every month, until&nbsp;</span>
-          <span className="font-semibold">{year}</span>
+          <span className="font-semibold">{`${month} ${year}.`}</span>
           <span>&nbsp;Thank you!</span>
         </div>
         <div className="flex gap-6">
