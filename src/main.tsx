@@ -14,7 +14,7 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
 const Header = () => {
   return (
     <header>
-      <nav className="h-20 px-10 flex w-full items-center bg-white">
+      <nav className="h-20 px-10 flex w-full fixed items-center bg-white">
         <img alt="logo" width="147" height="32" src="/logo.svg"></img>
       </nav>
     </header>
@@ -152,7 +152,7 @@ const Card = () => {
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Header />
-    <main className="flex justify-center min-h-screen pt-16 bg-stroke">
+    <main className="flex justify-center min-h-screen pt-36 bg-stroke">
       <Card />
     </main>
   </React.StrictMode>
