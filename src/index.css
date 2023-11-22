@@ -95,13 +95,4 @@
     letter-spacing: 0px;
     text-align: center;
   }
-
-  input,
-  button,
-  .date-input {
-    padding: 16px;
-    width: 100%;
-    border: 1px solid rgba(233, 238, 242, 1);
-    border-radius: 4px;
-  }
 }

@@ -10,6 +10,7 @@ export default {
         stroke: "rgba(244, 248, 250, 1)",
         salmon: "rgba(255, 219, 203, 1)",
         midnight: "rgba(66, 60, 102, 1)",
+        grey: "rgba(233, 238, 242, 1)",
         purpleGrey: "rgba(89, 93, 123, 1)",
       },
       boxShadow: {

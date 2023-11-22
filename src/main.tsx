@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
+import tw from "tailwind-styled-components";
 
 const MONTH_MS = 1000 * 60 * 60 * 24 * 30;
 const currentDate = Date.now();
@@ -19,6 +20,16 @@ const Header = () => {
     </header>
   );
 };
+
+const Input = tw.input`
+  p-[16px]
+  w-full
+  h-[60px] 
+  rubik-24
+  rounded
+  border
+  border-grey
+`;
 
 const Card = () => {
   const [money, setMoney] = useState("25");
@@ -69,11 +80,11 @@ const Card = () => {
           <label className="sans-14" htmlFor="donation">
             I can donate
           </label>
-          <input
+          <Input
+            className="pl-[40px]"
             value={money}
             onChange={(e) => setMoney(e.target.value)}
             type="number"
-            className="pl-[40px] h-[60px] rubik-24"
             name="donation"
             placeholder="25"
           />
@@ -81,20 +92,24 @@ const Card = () => {
         {/* col 2 */}
         <div className="flex flex-col gap-2">
           <span className="sans-14">Every month until</span>
-          <div className="flex h-[60px] justify-between">
+          <div className="relative flex h-[60px] justify-between">
             <img
+              className="absolute top-5 left-2"
               onClick={handleDateBack}
               role="button"
               src="/chevron_left.svg"
               alt="prev-month"
             />
-            <div className="w-[144px] flex flex-col justify-center items-center date-picker">
+            <Input
+              $as="div"
+              className="flex flex-col justify-center items-center"
+            >
               <span className="rubik-16">{month}</span>
               <span className="sans-12">{year}</span>
-            </div>
+            </Input>
             <img
+              className="absolute rotate-180 top-5 right-2"
               onClick={handleDateForward}
-              className="rotate-180"
               role="button"
               src="/chevron_left.svg"
               alt="next-month"
@@ -116,15 +131,19 @@ const Card = () => {
             <span>&nbsp;Thank you!</span>
           </div>
         </section>
-        <button className="text-center sans-16 cancel-btn hidden sm:inline">
+        <Input
+          $as="button"
+          className="text-center !sans-16 cancel-btn hidden sm:inline border-midnight"
+        >
           Cancel
-        </button>
-        <button
-          className="text-center sans-16 bg-midnight text-white continue-btn"
+        </Input>
+        <Input
+          $as="button"
+          className="text-center !sans-16 bg-midnight text-white"
           type="submit"
         >
           Continue
-        </button>
+        </Input>
       </form>
     </div>
   );
