@@ -14,7 +14,7 @@ const currencyFormatter = new Intl.NumberFormat("en-US", {
 const Header = () => {
   return (
     <header>
-      <nav className="h-20 px-10 flex w-full fixed items-center bg-white">
+      <nav className="h-20 px-10 w-full fixed hidden sm:flex items-center bg-white">
         <img alt="logo" width="147" height="32" src="/logo.svg"></img>
       </nav>
     </header>
@@ -55,8 +55,8 @@ const Card = () => {
   const total = Math.floor((date - currentDate) / MONTH_MS) * moneyParsed;
 
   return (
-    <div className="w-[600px] rounded-[5px] overflow-hidden shadow-level4 bg-white text-midnight h-fit">
-      <header className="bg-salmon px-10 py-6 gap-5 flex items-center h-32">
+    <div className="w-[600px] rounded-[5px] overflow-hidden shadow-level4 bg-white text-midnight h-screen sm:h-fit">
+      <header className="bg-salmon px-10 py-6 gap-5 flex flex-col sm:flex-row items-center">
         <img
           className="relative bottom-1"
           width="72"
@@ -121,7 +121,7 @@ const Card = () => {
             <span className="sans-20">Total amount</span>
             <span className="inter-32">{currencyFormatter.format(total)}</span>
           </div>
-          <div className="px-4 py-6 bg-stroke text-justify inter-12">
+          <div className="px-4 py-6 bg-stroke text-center sm:text-justify inter-12">
             <span>You will be sending&nbsp;</span>
             <span className="font-semibold">
               {currencyFormatter.format(moneyParsed)}
@@ -152,7 +152,7 @@ const Card = () => {
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Header />
-    <main className="flex justify-center min-h-screen pt-36 bg-stroke">
+    <main className="flex justify-center min-h-screen sm:pt-36 bg-stroke">
       <Card />
     </main>
   </React.StrictMode>
