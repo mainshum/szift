@@ -21,6 +21,18 @@ const Input = tw.input`
   border-grey
 `;
 
+const Button = tw(Input)`
+  text-center 
+  !sans-16
+`;
+
+const Arrow = tw.img`
+  absolute
+  active:bg-[rgba(232,234,242,1)]
+  top-5
+  hover:bg-[rgba(243,245,254,1)]
+`;
+
 export const Card = () => {
   const [money, setMoney] = useState("");
   const [date, setDate] = useState<number>(currentDate); // we start with current date
@@ -72,21 +84,21 @@ export const Card = () => {
           </label>
           <Input
             data-testid="donation"
-            className="pl-[40px]"
+            className="pl-[40px] focus:border-[rgba(66,60,102,1)] outline-none"
             value={money}
             onChange={(e) => setMoney(e.target.value)}
             type="number"
             name="donation"
-            placeholder="25"
+            placeholder="0.00"
           />
         </div>
         {/* col 2 */}
         <div className="flex flex-col gap-2">
           <span className="sans-14">Every month until</span>
           <div className="relative flex h-[60px] justify-between">
-            <img
+            <Arrow
               data-testid="prev-month"
-              className="absolute top-5 left-2"
+              className="top-5 left-2"
               onClick={handleDateBack}
               role="button"
               src="/chevron_left.svg"
@@ -100,9 +112,9 @@ export const Card = () => {
               <span className="rubik-16">{month}</span>
               <span className="sans-12">{year}</span>
             </Input>
-            <img
+            <Arrow
               data-testid="next-month"
-              className="absolute rotate-180 top-5 right-2"
+              className="rotate-180 top-5 right-2"
               onClick={handleDateForward}
               role="button"
               src="/chevron_left.svg"
@@ -130,19 +142,19 @@ export const Card = () => {
             <span>&nbsp;Thank you!</span>
           </div>
         </section>
-        <Input
+        <Button
           $as="button"
-          className="text-center !sans-16 cancel-btn hidden sm:inline border-midnight"
+          className="hidden active:bg-[rgba(178,167,244,0.25)] hover:bg-[rgba(178,167,244,0.1)] sm:inline border-midnight"
         >
           Cancel
-        </Input>
-        <Input
+        </Button>
+        <Button
           $as="button"
-          className="text-center !sans-16 bg-midnight text-white"
+          className=" bg-midnight hover:bg-[rgba(100,93,147,1)] active:bg-[rgba(36,30,71,1)] text-white"
           type="submit"
         >
           Continue
-        </Input>
+        </Button>
       </form>
     </div>
   );
