@@ -46,81 +46,85 @@ const Card = () => {
   return (
     <div className="w-[600px] rounded-[5px] overflow-hidden shadow-level4 bg-white text-midnight h-fit">
       <header className="bg-salmon px-10 py-6 gap-5 flex items-center h-32">
-        <img width="72" height="72" src="/giving-block.svg" alt="block" />
+        <img
+          className="relative bottom-1"
+          width="72"
+          height="72"
+          src="/giving-block.svg"
+          alt="block"
+        />
         <div>
-          <h1 className="card__header-font">The giving block</h1>
-          <span className="text-purpleGrey">Set up your donation goal!</span>
+          <h1 className="sans-32">The giving block</h1>
+          <span className="inter-16 text-purpleGrey">
+            Set up your donation goal!
+          </span>
         </div>
       </header>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="px-10 py-8 flex flex-col gap-8 card__body"
+        className="px-10 py-8 gap-8 grid sm:grid-cols-2"
       >
-        <div className="flex gap-6">
-          <div className="flex flex-col gap-1.5 relative">
-            <label className="el-label" htmlFor="donation">
-              I can donate
-            </label>
-            {/* unfortunately, :after won't work and we need to use img */}
+        {/* col 1 */}
+        <div className="flex flex-col gap-2 relative before:content-dollar before:absolute before:top-[43px] before:left-[10px]">
+          <label className="sans-14" htmlFor="donation">
+            I can donate
+          </label>
+          <input
+            value={money}
+            onChange={(e) => setMoney(e.target.value)}
+            type="number"
+            className="pl-[40px] h-[60px] rubik-24"
+            name="donation"
+            placeholder="25"
+          />
+        </div>
+        {/* col 2 */}
+        <div className="flex flex-col gap-2">
+          <span className="sans-14">Every month until</span>
+          <div className="flex h-[60px] justify-between">
             <img
-              className="w-4 h-4 left-4 top-12 absolute"
-              alt="$"
-              src="/dollar.svg"
+              onClick={handleDateBack}
+              role="button"
+              src="/chevron_left.svg"
+              alt="prev-month"
             />
-            <input
-              value={money}
-              onChange={(e) => setMoney(e.target.value)}
-              type="number"
-              className="!pl-[40px]"
-              name="donation"
-              placeholder="25"
-            />
-          </div>
-          <div className="flex flex-col gap-1.5">
-            <span className="el-label">Every month until</span>
-            <div className="date-input flex">
-              <img
-                onClick={handleDateBack}
-                role="button"
-                src="/chevron_left.svg"
-                alt="prev-month"
-              />
-              <div className="w-[144px] flex flex-col justify-center items-center date-picker">
-                <span>{month}</span>
-                <span>{year}</span>
-              </div>
-              <img
-                onClick={handleDateForward}
-                className="rotate-180"
-                role="button"
-                src="/chevron_left.svg"
-                alt="prev-month"
-              />
+            <div className="w-[144px] flex flex-col justify-center items-center date-picker">
+              <span className="rubik-16">{month}</span>
+              <span className="sans-12">{year}</span>
             </div>
+            <img
+              onClick={handleDateForward}
+              className="rotate-180"
+              role="button"
+              src="/chevron_left.svg"
+              alt="next-month"
+            />
           </div>
         </div>
-        <div className="flex px-4 justify-between">
-          <span className="total-amount">Total amount</span>
-          <span className="sum">{currencyFormatter.format(total)}</span>
-        </div>
-        <div className="flex px-4 py-6 !items-center summary bg-stroke">
-          <span>You will be sending&nbsp;</span>
-          <span className="font-semibold">
-            {currencyFormatter.format(moneyParsed)}
-          </span>
-          <span>&nbsp;every month, until&nbsp;</span>
-          <span className="font-semibold">{`${month} ${year}.`}</span>
-          <span>&nbsp;Thank you!</span>
-        </div>
-        <div className="flex gap-6">
-          <button className="text-center cancel-btn">Cancel</button>
-          <button
-            className="text-center bg-midnight text-white continue-btn"
-            type="submit"
-          >
-            Continue
-          </button>
-        </div>
+        <section className="flex flex-col col-span-full border gap-8 sm:border-none">
+          <div className="flex px-6 pt-4 justify-between items-center">
+            <span className="sans-20">Total amount</span>
+            <span className="inter-32">{currencyFormatter.format(total)}</span>
+          </div>
+          <div className="px-4 py-6 bg-stroke text-justify inter-12">
+            <span>You will be sending&nbsp;</span>
+            <span className="font-semibold">
+              {currencyFormatter.format(moneyParsed)}
+            </span>
+            <span>&nbsp;every month, until&nbsp;</span>
+            <span className="font-semibold">{`${month} ${year}.`}</span>
+            <span>&nbsp;Thank you!</span>
+          </div>
+        </section>
+        <button className="text-center sans-16 cancel-btn hidden sm:inline">
+          Cancel
+        </button>
+        <button
+          className="text-center sans-16 bg-midnight text-white continue-btn"
+          type="submit"
+        >
+          Continue
+        </button>
       </form>
     </div>
   );
